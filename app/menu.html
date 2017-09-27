@@ -59,7 +59,8 @@
                 <div class="tab-content">
                    <ul class="media-list tab-pane fade in active">
                        <!-- Accessing Dishes through controller menuCtrl -->
-                    <li class="media" ng-repeat="dish in menuCtrl.dishes">
+                    <!-- Adding a ng Filter -->
+                      <li class="media" ng-repeat="dish in menuCtrl.dishes | filter:menuCtrl.filtText">
                         <div class="media-left media-middle">
                             <a href="#">
                             <img class="media-object img-thumbnail"
@@ -91,6 +92,9 @@
 
             // Default Active Tab
             this.tab = 1;
+
+            // filtText for categories to filter
+            this.filtText = '';
 
             // Dishes object
             var dishes=[
@@ -140,6 +144,16 @@
 
               // Change active tab
               this.tab = setTab;
+
+              // Changing the tabs
+              if (setTab === 2)
+                  this.filtText = "appetizer";
+              else if (setTab === 3)
+                  this.filtText = "mains";
+              else if (setTab === 4)
+                  this.filtText = "dessert";
+              else
+                  this.filtText = "";
             }
 
             // isSelected check for tab activation
