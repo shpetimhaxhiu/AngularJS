@@ -30,7 +30,7 @@ gulp.task('clean', function() {
 
 // Default task
 gulp.task('default', ['clean'], function() {
-    gulp.start('usemin', 'usemin2', 'usemin3', 'imagemin','copyfonts');
+    gulp.start('usemin', 'usemin2', 'usemin3', 'usemin4','imagemin','copyfonts');
 });
 
 
@@ -65,6 +65,15 @@ gulp.task('usemin3',['jshint'], function () {
       .pipe(gulp.dest('dist/'));
 });
 
+gulp.task('usemin4',['jshint'], function () {
+  return gulp.src('./app/index.html')
+      .pipe(usemin({
+        css:[minifycss(),rev()],
+        js: [ngannotate(),uglify(),rev()]
+      }))
+      .pipe(gulp.dest('dist/'));
+});
+
 
 // Images
 gulp.task('imagemin', function() {
@@ -87,7 +96,7 @@ gulp.task('copyfonts', ['clean'], function() {
 // Watch
 gulp.task('watch', ['browser-sync'], function() {
   // Watch .js files
-  gulp.watch('{app/scripts/**/*.js,app/styles/**/*.css,app/**/*.html}', ['usemin'], ['usemin2'], ['usemin3']);
+  gulp.watch('{app/scripts/**/*.js,app/styles/**/*.css,app/**/*.html}', ['usemin'], ['usemin2'], ['usemin3'], ['usemin4']);
       // Watch image files
   gulp.watch('app/images/**/*', ['imagemin']);
 
