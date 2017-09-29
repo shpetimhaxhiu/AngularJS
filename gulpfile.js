@@ -30,7 +30,7 @@ gulp.task('clean', function() {
 
 // Default task
 gulp.task('default', ['clean'], function() {
-    gulp.start('usemin', 'usemin2', 'imagemin','copyfonts');
+    gulp.start('usemin', 'usemin2', 'usemin3', 'imagemin','copyfonts');
 });
 
 
@@ -56,6 +56,14 @@ gulp.task('usemin2',['jshint'], function () {
       .pipe(gulp.dest('dist/'));
 });
 
+gulp.task('usemin3',['jshint'], function () {
+  return gulp.src('./app/dishdetail.html')
+      .pipe(usemin({
+        css:[minifycss(),rev()],
+        js: [ngannotate(),uglify(),rev()]
+      }))
+      .pipe(gulp.dest('dist/'));
+});
 
 
 // Images
@@ -79,7 +87,7 @@ gulp.task('copyfonts', ['clean'], function() {
 // Watch
 gulp.task('watch', ['browser-sync'], function() {
   // Watch .js files
-  gulp.watch('{app/scripts/**/*.js,app/styles/**/*.css,app/**/*.html}', ['usemin'], ['usemin2']);
+  gulp.watch('{app/scripts/**/*.js,app/styles/**/*.css,app/**/*.html}', ['usemin'], ['usemin2'], ['usemin3']);
       // Watch image files
   gulp.watch('app/images/**/*', ['imagemin']);
 
