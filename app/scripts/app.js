@@ -4,7 +4,7 @@ angular.module('confusionApp', ['ui.router'])
 
 .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
-                // route for the home page
+        // route for the home page
         .state('app', {
             url:'/',
             views: {
@@ -61,6 +61,7 @@ angular.module('confusionApp', ['ui.router'])
                }
             }
         });
+        
         $urlRouterProvider.otherwise('/');
 })
 ;
