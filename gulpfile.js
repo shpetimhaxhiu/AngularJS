@@ -31,28 +31,19 @@ gulp.task('clean', function() {
 
 // Default task
 gulp.task('default', ['clean'], function() {
-    gulp.start('usemin', 'usemin2', 'imagemin','copyfonts');
+    gulp.start('usemin',  'imagemin','copyfonts');
 });
 
 
 
 
 gulp.task('usemin',['jshint'], function () {
-  return gulp.src('./app/*.html')
+  return gulp.src('./app/**/*.html')
       .pipe(usemin({
         css:[minifycss(),rev()],
-        js: [ngannotate(),rev()]
+        js: [ngannotate(), uglify(), rev()]
       }))
       .pipe(gulp.dest('dist/'));
-});
-
-gulp.task('usemin2',['jshint'], function () {
-  return gulp.src('./app/views/*.html')
-      .pipe(usemin({
-        css:[minifycss(),rev()],
-        js: [ngannotate(),rev()]
-      }))
-      .pipe(gulp.dest('dist/views/'));
 });
 
 // gulp.task('usemin2',['jshint'], function () {
@@ -104,7 +95,7 @@ gulp.task('copyfonts', ['clean'], function() {
 // Watch
 gulp.task('watch', ['browser-sync'], function() {
   // Watch .js files
-  gulp.watch('{app/scripts/**/*.js,app/styles/**/*.css,app/**/*.html}', ['usemin'], ['usemin2']);
+  gulp.watch('{app/scripts/**/*.js,app/styles/**/*.css,app/**/*.html}', ['usemin']);
       // Watch image files
   gulp.watch('app/images/**/*', ['imagemin']);
 
